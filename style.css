@@ -1,7 +1,15 @@
 body {
-    background: repeating-linear-gradient(to bottom, #a67aff,#6696ff, #a866ff, #f766ff, #66e0ff);
-    min-height: 100vh;
-    margin: 0;
+    background: linear-gradient(
+        to bottom,
+        #a67aff,
+        #6696ff,
+        #a866ff,
+        #f766ff,
+        #66e0ff,
+        #a67aff
+    );
+    background-size: auto 2000px;
+    background-repeat: repeat-y;
 }
 .main {
     background: repeating-linear-gradient(to bottom, #cda761,#aaca51, #52cd54, #53cfb6, #55d486)
