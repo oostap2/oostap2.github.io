@@ -1,11 +1,10 @@
 body {
-    background: repeating-linear-gradient(#a67aff,#6696ff, #a866ff, #f766ff, #66e0ff);
-    height: 100vh;
+    background: repeating-linear-gradient(to bottom, #a67aff,#6696ff, #a866ff, #f766ff, #66e0ff);
+    min-height: 100vh;
     margin: 0;
-    transition: background 20s ease;
 }
 .main {
-    background: linear-gradient(#cda761,#aaca51, #52cd54, #53cfb6, #55d486)
+    background: repeating-linear-gradient(to bottom, #cda761,#aaca51, #52cd54, #53cfb6, #55d486)
 }
 button {
     background-color: rgb(150, 150, 150); /* Зелений фон */
