@@ -20,7 +20,7 @@ button {
     background-color: transparent;
     color: black;
     border: 2px solid black;
-    border-radius: 50%;
+    border-radius: 0%;
     width: 100px;
     height: 100px;
     font-size: 46px;
