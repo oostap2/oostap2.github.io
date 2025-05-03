@@ -10,6 +10,7 @@ body {
     );
     background-size: auto 2000px;
     background-repeat: repeat-y;
+}
 .main {
     background: linear-gradient(#cda761,#aaca51, #52cd54, #53cfb6, #55d486);
     background-size: auto 2000px;
