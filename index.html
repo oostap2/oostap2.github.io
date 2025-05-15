@@ -2,34 +2,26 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Sprawdzian starożytność</title>
+    <title>oostap2</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        button {
-            background-color: transparent;
-            color: black;
-            border: 2px solid black;
-            border-radius: 0%;
-            width: 100px;
-            height: 100px;
-            font-size: 46px;
-            cursor: pointer;
-            text-align: center;
-            margin: 10px;
-        }
-    </style>
 </head>
-<body class="main">
-    <center>
-        <h1 style="margin: 60px; font-size: 70px;">Zgapka2</h1>
-        <a href="src/one.html">  <button>1</button></a>
-        <a href="src/two.html">  <button>2</button></a>
-        <a href="src/three.html"><button>3</button></a>
-        <a href="src/four.html"> <button>4</button></a> <br>
-        <a href="src/five.html"> <button>5</button></a>
-        <a href="src/six.html">  <button>6</button></a>
-        <a href="src/seven.html"><button>7</button></a>
-        <a href="src/eight.html"><button>8</button></a>
-    </center>
+<body>
+    <div class="container">
+        <select id="languageSwitcher">
+          <option value="ua">Українська</option>
+          <option value="en">English</option>
+          <option value="pl">Polski</option>
+        </select>
+    
+        <h1 data-i18n="language"></h1>
+        <p data-i18n="description"></p>
+    </div><br><br>
+    <div class="container">
+        <h2 data-i18n="content"></h2>
+        <a href="maze/maze.html" data-i18n="maze"></a><br><br>
+        <a href="zgapka/Main.html" data-i18n="shitinfo"></a><br><br>
+    </div>
+    
+<script src="lang.js"></script>
 </body>
 </html>

@@ -1,43 +1,38 @@
 body {
-    background: linear-gradient(
-        to bottom,
-        #a67aff,
-        #6696ff,
-        #a866ff,
-        #f766ff,
-        #66e0ff,
-        #a67aff
-    );
-    background-size: auto 2000px;
-    background-repeat: repeat-y;
+    font-family: sans-serif;
+    background: hsl(114, 56%, 77%);
+    margin: 0;
+    padding: 2rem;
 }
-.main {
-    background: linear-gradient(#cda761,#aaca51, #52cd54, #53cfb6, #55d486);
-    background-size: auto 2000px;
-    background-repeat: repeat-y;
+.container {
+    max-width: 600px;
+    margin: auto;
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
-button {
-    background-color: transparent;
-    color: black;
-    border: 2px solid black;
-    border-radius: 0%;
-    width: 100px;
-    height: 100px;
-    font-size: 46px;
-    cursor: pointer;
-    text-align: center;
-    margin: 10px;
-    font-size: 25px; margin: 10px; width: 50px; height: 50px;
-    transition: all 0.4s;
+
+select {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    font-size: 1rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: auto;
 }
-button:hover{
-    border: 2px solid white;
-    color: white;
+
+a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+    border-bottom: 2px solid transparent;
 }
-ul {
-    list-style-position: inside;
-}
-li:hover, h2:hover, h1:hover, p:hover{
-    color: darkslategray;
-    cursor: default; 
+
+a:hover {
+    color: #2980b9;
+    border-bottom: 2px solid #2980b9;
 }
