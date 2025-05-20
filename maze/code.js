@@ -30,6 +30,7 @@ const keys = [];
 let touchPosition = { x: 0, y: 0 }; // Зберігає координати дотику
 let start_touchPosition = { x: 0, y: 0 };
 let kaka = true;
+let splittingSize = 6;
 
 // Обробник дотику
 canvas.addEventListener('touchmove', event => {
@@ -59,11 +60,16 @@ window.addEventListener('keyup', e => {
 
 // Клас гравця
 class Player {
-    constructor() {
-        this.size = 6;
+    constructor(x=0,y=0,constructor=false, size=6, speed=2) {
+        this.size = size;
+        this.speed = speed;
+        if (constructor){
+            this.x = x;
+            this.y = y;
+            return;
+        }
         this.x = 57 - this.size / 2;
         this.y = 57 - this.size / 2;
-        this.speed = 2;
     }
 
     draw() {
@@ -72,7 +78,7 @@ class Player {
     }
 
     update() {
-        // Рух для телефону
+        // phone movement
         if (isTouching) {
             // Розрахунок вектора напрямку
             const deltaX = touchPosition.x - start_touchPosition.x;
@@ -80,7 +86,7 @@ class Player {
 
             // Нормалізація вектора
             const magnitude = Math.sqrt(deltaX ** 2 + deltaY ** 2);
-            const normX = Math.round(deltaX / magnitude || 0); // Уникнення ділення на 0
+            const normX = Math.round(deltaX / magnitude || 0);
             const normY = Math.round(deltaY / magnitude || 0);
 
             // Зміщення по обох осях
@@ -93,24 +99,97 @@ class Player {
             for (const wall of operating_level[0]) if (checkCollision(wall)) this.y = oldpos_y;
 
         } else {
-            // Рух для ПК
+            // pc movement
             const oldpos_x = this.x;
             this.x += this.speed * Math.sign(keys.indexOf('ArrowRight') - keys.indexOf('ArrowLeft'));
             if (oldpos_x == this.x) this.x += this.speed * Math.sign(keys.indexOf('KeyD') - keys.indexOf('KeyA'));
-            for (const wall of operating_level[0]) if (checkCollision(wall)) this.x = oldpos_x;
+            for (const wall of getWalls(this)) if (checkCollision(wall, this)) wallTouch(oldpos_x, this.y, true, this);
 
             const oldpos_y = this.y;
             this.y += this.speed * Math.sign(keys.indexOf('ArrowDown') - keys.indexOf('ArrowUp'));
             if (oldpos_y == this.y) this.y += this.speed * Math.sign(keys.indexOf('KeyS') - keys.indexOf('KeyW'));
-            for (const wall of operating_level[0]) if (checkCollision(wall)) this.y = oldpos_y;
+            for (const wall of getWalls(this)) if (checkCollision(wall, this)) wallTouch(oldpos_x, oldpos_y, false, this);
         }
     }
 }
 
+const players = [new Player()];//, new Player(70, 70, true, 1, 4)]; // player
 
-const player = new Player();
+function lastLevelLogic() {
+    if (operating_level_number != 10 || operating_level[2].length == 0) return; 
+    players.forEach(player2 => {
+        if (checkCollision(operating_level[2][0], player2)) {
+            operating_level_number = 0;
+            riwni1[10][2].splice(0, 1);
+            operating_level = riwni1[operating_level_number];
+
+            for (const wall of operating_level[0]) 
+                if (checkCollision(wall, player2)) 
+                    players.splice(players.indexOf(player2), 1);
+        }
+    });
+}
+
+function makeMeMore(player=player) {
+    if (player.size > splittingSize) {
+        player.size /= 2;
+        players.push(new Player(
+            player.x + player.size,
+            player.y + player.size,
+            true,
+            player.size
+        ));
+        players.push(new Player(
+            player.x,
+            player.y + player.size,
+            true,
+            player.size
+        ));
+        players.push(new Player(
+            player.x + player.size,
+            player.y,
+            true,
+            player.size
+        ));
+    }
+}
+
+function getWalls(player=this) {
+    const orthrPlayersRects = [];
+    players.forEach(player2 => {
+        if (player !== player2)
+            orthrPlayersRects.push([player2.x, player2.y, player2.size, player2.size]);
+    });
+    walls = operating_level[0].concat(orthrPlayersRects);
+    return walls;
+}
+
+function keysManager(player=player) {
+    if (keys[0] == "KeyR") 
+        restart(player);
+}
+
+function wallTouch(oldpos_x, oldpos_y, aaa = true, player=this) {
+    if (document.getElementById("hardcore").checked) {
+        restart(player);
+        return;
+    }
+    if (aaa) {
+        player.x = oldpos_x;
+        return;
+    }
+    player.y = oldpos_y;
+}
+
+function restart(player=player) {
+    player.x = 57 - player.size / 2;
+    player.y = 57 - player.size / 2;
+
+    operating_level_number = 0;
+    operating_level = riwni1[operating_level_number];
+}
     
-function checkCollision(wall) {
+function checkCollision(wall, player=this) {
     return player.x < wall[0] + wall[2] &&
         player.x + player.size > wall[0] &&
         player.y < wall[1] + wall[3] &&
@@ -122,14 +201,21 @@ function update_walls() {
     for (const wall of operating_level[0]) ctx.fillRect(...wall);
 }
 
-function update_finish() {
+function update_finish(player=player) {
     ctx.fillStyle = 'green';
     for (const wall of operating_level[2]) {
         ctx.fillRect(...wall);
-        if (checkCollision(wall)) {
+        if (operating_level_number == 10) return;
+        if (checkCollision(wall, player)) {
             operating_level_number += 1;
             operating_level = riwni1[operating_level_number];
-            if (operating_level_number == riwni1.length-1) player.size *= 2;
+            if (operating_level_number == riwni1.length-1) 
+                player.size *= 2;
+            players.forEach(player2 => {
+                for (const wall of operating_level[0])
+                    if (checkCollision(wall, player2))
+                        players.splice(players.indexOf(player2), 1);
+            });
         }
     }
 }
@@ -138,6 +224,13 @@ function update_other_rects() {
     ctx.fillStyle = 'blue';
     for (const wall of operating_level[1]) {
         ctx.fillRect(...wall);
+        players.forEach(player2 => {
+            if (checkCollision(wall, player2)) {
+                makeMeMore(player2);
+                if (operating_level[2].length == 0)
+                    operating_level[2].push([15, 15, 24, 24]);
+            }
+        });
     }
 }
 
@@ -151,9 +244,14 @@ function gameLoop() {
     drawBackground();
     update_walls();
     update_other_rects();
-    player.draw();
-    player.update();
-    update_finish();
+    lastLevelLogic();
+    players.forEach(player2 => {
+        player2.draw();
+        player2.update();
+        keysManager(player2);
+        update_finish(player2);
+    });
+    //
     requestAnimationFrame(gameLoop);
 }
 
