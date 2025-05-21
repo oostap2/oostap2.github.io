@@ -78,25 +78,22 @@ class Player {
     }
 
     update() {
-        // phone movement
         if (isTouching) {
-            // Розрахунок вектора напрямку
+            // phone movement
             const deltaX = touchPosition.x - start_touchPosition.x;
             const deltaY = touchPosition.y - start_touchPosition.y;
 
-            // Нормалізація вектора
             const magnitude = Math.sqrt(deltaX ** 2 + deltaY ** 2);
             const normX = Math.round(deltaX / magnitude || 0);
             const normY = Math.round(deltaY / magnitude || 0);
 
-            // Зміщення по обох осях
             const oldpos_x = this.x;
             this.x += normX * this.speed;
-            for (const wall of operating_level[0]) if (checkCollision(wall)) this.x = oldpos_x;
-        
+            for (const wall of getWalls(this)) if (checkCollision(wall)) wallTouch(oldpos_x, this.y, true, this);
+
             const oldpos_y = this.y;
             this.y += normY * this.speed;
-            for (const wall of operating_level[0]) if (checkCollision(wall)) this.y = oldpos_y;
+            for (const wall of getWalls(this)) if (checkCollision(wall)) wallTouch(oldpos_x, oldpos_y, false, this);
 
         } else {
             // pc movement
@@ -113,7 +110,7 @@ class Player {
     }
 }
 
-const players = [new Player()];//, new Player(70, 70, true, 1, 4)]; // player
+let players = [new Player(12,12,true,6*2*2*2)];//, new Player(70, 70, true, 1, 4)]; // player
 
 function lastLevelLogic() {
     if (operating_level_number != 10 || operating_level[2].length == 0) return; 
@@ -153,6 +150,15 @@ function makeMeMore(player=player) {
         ));
     }
 }
+players.forEach(player2 => {
+    makeMeMore(player2)
+});
+players.forEach(player2 => {
+    makeMeMore(player2)
+});
+players.forEach(player2 => {
+    makeMeMore(player2)
+});
 
 function getWalls(player=this) {
     const orthrPlayersRects = [];
@@ -170,10 +176,6 @@ function keysManager(player=player) {
 }
 
 function wallTouch(oldpos_x, oldpos_y, aaa = true, player=this) {
-    if (document.getElementById("hardcore").checked) {
-        restart(player);
-        return;
-    }
     if (aaa) {
         player.x = oldpos_x;
         return;
@@ -211,11 +213,10 @@ function update_finish(player=player) {
             operating_level = riwni1[operating_level_number];
             if (operating_level_number == riwni1.length-1) 
                 player.size *= 2;
-            players.forEach(player2 => {
-                for (const wall of operating_level[0])
-                    if (checkCollision(wall, player2))
-                        players.splice(players.indexOf(player2), 1);
+            players = players.filter(player2 => {
+                return !operating_level[0].some(wall => checkCollision(wall, player2));
             });
+            
         }
     }
 }
