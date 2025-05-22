@@ -101,10 +101,6 @@ function lastLevelLogic() {
             riwni1[10][2].splice(0, 1);
             operating_level = riwni1[operating_level_number];
 
-            // for (const wall of operating_level[0]) 
-            //     if (checkCollision(wall, player2)) 
-            //         players.splice(players.indexOf(player2), 1);
-            
             players = players.filter(player2 => {
                 return !operating_level[0].some(wall => checkCollision(wall, player2));
             });
@@ -190,7 +186,9 @@ function update_finish(player=player) {
             if (operating_level_number == riwni1.length-1) {
                 player.size *= 2;
                 // 
-                
+                const position1 = 58 - player.size / 2;
+                player.x = position1;
+                player.y = position1;
             }
             players = players.filter(player2 => {
                 return !operating_level[0].some(wall => checkCollision(wall, player2));
