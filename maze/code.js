@@ -78,39 +78,20 @@ class Player {
     }
 
     update() {
-        if (isTouching) {
-            // phone movement
-            const deltaX = touchPosition.x - start_touchPosition.x;
-            const deltaY = touchPosition.y - start_touchPosition.y;
+        // movement
+        const oldpos_x = this.x;
+        this.x += this.speed * Math.sign(keys.indexOf('ArrowRight') - keys.indexOf('ArrowLeft'));
+        if (oldpos_x == this.x) this.x += this.speed * Math.sign(keys.indexOf('KeyD') - keys.indexOf('KeyA'));
+        for (const wall of getWalls(this)) if (checkCollision(wall, this)) wallTouch(oldpos_x, this.y, true, this);
 
-            const magnitude = Math.sqrt(deltaX ** 2 + deltaY ** 2);
-            const normX = Math.round(deltaX / magnitude || 0);
-            const normY = Math.round(deltaY / magnitude || 0);
-
-            const oldpos_x = this.x;
-            this.x += normX * this.speed;
-            for (const wall of getWalls(this)) if (checkCollision(wall)) wallTouch(oldpos_x, this.y, true, this);
-
-            const oldpos_y = this.y;
-            this.y += normY * this.speed;
-            for (const wall of getWalls(this)) if (checkCollision(wall)) wallTouch(oldpos_x, oldpos_y, false, this);
-
-        } else {
-            // pc movement
-            const oldpos_x = this.x;
-            this.x += this.speed * Math.sign(keys.indexOf('ArrowRight') - keys.indexOf('ArrowLeft'));
-            if (oldpos_x == this.x) this.x += this.speed * Math.sign(keys.indexOf('KeyD') - keys.indexOf('KeyA'));
-            for (const wall of getWalls(this)) if (checkCollision(wall, this)) wallTouch(oldpos_x, this.y, true, this);
-
-            const oldpos_y = this.y;
-            this.y += this.speed * Math.sign(keys.indexOf('ArrowDown') - keys.indexOf('ArrowUp'));
-            if (oldpos_y == this.y) this.y += this.speed * Math.sign(keys.indexOf('KeyS') - keys.indexOf('KeyW'));
-            for (const wall of getWalls(this)) if (checkCollision(wall, this)) wallTouch(oldpos_x, oldpos_y, false, this);
-        }
+        const oldpos_y = this.y;
+        this.y += this.speed * Math.sign(keys.indexOf('ArrowDown') - keys.indexOf('ArrowUp'));
+        if (oldpos_y == this.y) this.y += this.speed * Math.sign(keys.indexOf('KeyS') - keys.indexOf('KeyW'));
+        for (const wall of getWalls(this)) if (checkCollision(wall, this)) wallTouch(oldpos_x, oldpos_y, false, this);
     }
 }
 
-let players = [new Player(12,12,true,6*2*2*2)];//, new Player(70, 70, true, 1, 4)]; // player
+let players = [new Player()];
 
 function lastLevelLogic() {
     if (operating_level_number != 10 || operating_level[2].length == 0) return; 
@@ -120,9 +101,13 @@ function lastLevelLogic() {
             riwni1[10][2].splice(0, 1);
             operating_level = riwni1[operating_level_number];
 
-            for (const wall of operating_level[0]) 
-                if (checkCollision(wall, player2)) 
-                    players.splice(players.indexOf(player2), 1);
+            // for (const wall of operating_level[0]) 
+            //     if (checkCollision(wall, player2)) 
+            //         players.splice(players.indexOf(player2), 1);
+            
+            players = players.filter(player2 => {
+                return !operating_level[0].some(wall => checkCollision(wall, player2));
+            });
         }
     });
 }
@@ -150,15 +135,6 @@ function makeMeMore(player=player) {
         ));
     }
 }
-players.forEach(player2 => {
-    makeMeMore(player2)
-});
-players.forEach(player2 => {
-    makeMeMore(player2)
-});
-players.forEach(player2 => {
-    makeMeMore(player2)
-});
 
 function getWalls(player=this) {
     const orthrPlayersRects = [];
@@ -171,7 +147,7 @@ function getWalls(player=this) {
 }
 
 function keysManager(player=player) {
-    if (keys[0] == "KeyR") 
+    if (keys[0] == "KeyR" && players.length == 1) 
         restart(player);
 }
 
@@ -211,8 +187,11 @@ function update_finish(player=player) {
         if (checkCollision(wall, player)) {
             operating_level_number += 1;
             operating_level = riwni1[operating_level_number];
-            if (operating_level_number == riwni1.length-1) 
+            if (operating_level_number == riwni1.length-1) {
                 player.size *= 2;
+                // 
+                
+            }
             players = players.filter(player2 => {
                 return !operating_level[0].some(wall => checkCollision(wall, player2));
             });
@@ -229,7 +208,7 @@ function update_other_rects() {
             if (checkCollision(wall, player2)) {
                 makeMeMore(player2);
                 if (operating_level[2].length == 0)
-                    operating_level[2].push([15, 15, 24, 24]);
+                    operating_level[2].push([34, 34, 48, 48]);
             }
         });
     }
