@@ -27,29 +27,9 @@ canvas.height = 500;
 
 const keys = [];
 
-let touchPosition = { x: 0, y: 0 }; // Зберігає координати дотику
-let start_touchPosition = { x: 0, y: 0 };
-let kaka = true;
 let splittingSize = 6;
 
-// Обробник дотику
-canvas.addEventListener('touchmove', event => {
-    const touch = event.touches[0];
-    const rect = canvas.getBoundingClientRect();
-
-    touchPosition.x = touch.clientX - rect.left;
-    touchPosition.y = touch.clientY - rect.top;
-});
-
-canvas.addEventListener('touchstart', event => {
-    const touch = event.touches[0];
-    const rect = canvas.getBoundingClientRect();
-
-    start_touchPosition.x = touch.clientX - rect.left;
-    start_touchPosition.y = touch.clientY - rect.top;
-});
-
-// Обробка подій клавіатури
+// keyboard controls
 window.addEventListener('keydown', e => {
     if (!keys.includes(e.code)) keys.push(e.code);
 });
@@ -58,7 +38,28 @@ window.addEventListener('keyup', e => {
     if (keys.includes(e.code)) keys.splice(keys.indexOf(e.code), 1);
 });
 
-// Клас гравця
+// mobile controls
+const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+const buttons = document.querySelectorAll('#mobile-controls button');
+
+buttons.forEach(button => {
+    const key = button.dataset.key;
+    if (!isTouchDevice) button.style.display = 'none';
+
+    button.addEventListener('touchstart', (e) => {
+        console.log(keys);
+        e.preventDefault(); //
+        if (!keys.includes(key)) keys.push(key);
+    });
+
+    button.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        const index = keys.indexOf(key);
+        if (index !== -1) keys.splice(index, 1);
+    });
+});
+
+// Amogus class
 class Player {
     constructor(x=0,y=0,constructor=false, size=6, speed=2) {
         this.size = size;

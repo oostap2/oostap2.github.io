@@ -10,3 +10,28 @@ canvas {
     margin: auto;
     display: block;
 }
+
+#left-controls {
+    position: absolute; 
+    bottom: 20px; 
+    left: 20px;
+}
+
+#mobile-controls button {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    border-radius: 10px;
+    opacity: 0.7;
+    background-color: #333;
+    color: #fff;
+}
+
+#right-controls {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

@@ -3,11 +3,25 @@
 <head>
     <title data-i18n="mazetitle"></title>
     <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="style2.css"> -->
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
 <button onclick="window.location.href = '../index.html';" style="font-size: 25px; margin: 10px; width: 50px; height: 50px;">←</button>
+
 <canvas id="gameCanvas"></canvas>
+
+<div id="mobile-controls">
+    <div id="left-controls">
+        <button data-key="ArrowLeft">←</button>
+        <button data-key="ArrowRight">→</button>
+    </div>
+    <div id="right-controls">
+        <button data-key="ArrowUp">↑</button>
+        <button data-key="ArrowDown">↓</button>
+    </div>
+</div>
+
 <script src="../lang.js"></script>
 <script src="code.js"></script>
 </body>
