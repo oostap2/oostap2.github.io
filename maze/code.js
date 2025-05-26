@@ -17,6 +17,21 @@ let operating_level = riwni1[operating_level_number];
 
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
+function applyCanvasStyles() {
+    if (window.innerHeight < window.innerWidth)
+        canvas.style.height = '100%';
+    else
+        canvas.style.width = '100%';
+
+    canvas.style.position = 'fixed';
+    canvas.style.top = '50%';
+    canvas.style.left = '50%';
+    canvas.style.transform = 'translate(-50%, -50%)';
+    canvas.style.maxWidth = '100%';
+    canvas.style.maxHeight = '100vh';
+    canvas.style.margin = 'auto';
+    canvas.style.display = 'block';
+} applyCanvasStyles();
 
 isTouching = false;
 canvas.addEventListener('touchstart', () => isTouching = true);
