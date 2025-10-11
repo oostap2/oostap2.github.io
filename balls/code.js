@@ -1,5 +1,7 @@
 
 const TWO_PI = Math.PI * 2;
+const quantity_label = document.getElementById("quantity");
+const aim_button = document.getElementById("aim");
 
 class Vector2 
 {
@@ -366,6 +368,7 @@ function add_ball(radius=20, color='white', position=new Vector2(canvas.width/2,
     );
     balls.push(ball);
     colliders.push(ball.collider);
+    set_quantity();
 }
 
 function remove_ball()
@@ -373,6 +376,24 @@ function remove_ball()
     if (balls.length === 1) return;
     colliders.pop();
     balls.pop();
+    set_quantity();
+}
+
+function set_quantity() 
+{
+    quantity_label.textContent = balls.length;
+}
+
+function aim_showing() 
+{
+    if (is_aim)
+    {
+        is_aim = false;
+        aim_button.textContent = "show aim";
+        return;
+    }
+    is_aim = true;
+    aim_button.textContent = "hide aim";
 }
 
 const canvas = document.getElementById('gameCanvas');
@@ -381,20 +402,23 @@ const ctx = canvas.getContext('2d');
 canvas.width = 500;
 canvas.height = 500;
 
-var force_multiplayer = 5000;
+var force_multiplayer = 50000;
 var size = 20;
 const direction = new Vector2(1, 0);
 const FPS = 60;
 const delta = 1 / FPS;
+let is_aim = true;
 
 let colliders = [];
 let balls = [];
 
-add_ball()
+add_ball();
 balls[0].circle.color = 'lime';
 
 function gameLoop()
 {
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, canvas.width, canvas.height); 
     ctx.fillStyle = 'black';
     ctx.fillRect(1, 1, canvas.width -2, canvas.height -2);
 
@@ -410,7 +434,11 @@ function gameLoop()
     {
     	ball.draw(ctx);
     }
-    draw_aim();
+
+    if (is_aim)
+    {
+        draw_aim();
+    }
 
     requestAnimationFrame(gameLoop);
 }

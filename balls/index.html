@@ -1,32 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Jimmy Balls</title>
-    <!-- <link rel="stylesheet" href="../style.css"> -->
+    <title>Balls Engine</title>
+    <style>*{margin: 2px;}</style>
 </head>
 <body>
-<button onclick="window.location.href = '../index.html';" 
-style="font-size: 25px; margin: 10px; width: 50px; height: 50px;">←</button>
+<button onclick="window.location.href = '../index.html';">←</button>
 
 <canvas id="gameCanvas"></canvas>
 <br>
 <button onclick="push_ball();">push</button>
 <br>
-<button onclick="rotate_direction(-0.1);">rotate left</button>
+<button onclick="rotate_direction(-0.15);">rotate left</button>
 <br>
-<button onclick="rotate_direction(0.1);">rotate right</button>
+<button onclick="rotate_direction(0.15);">rotate right</button>
 <br>
-<input type="number" oninput="change_force_multiplayer(this.value);" value="5000">change force mutiplayer
+<input type="number" oninput="change_force_multiplayer(this.value);" value="50000">change force mutiplayer
 <br>
 <input type="number" oninput="change_width(this.value);" value="500">change canvas width
 <br>
 <input type="number" oninput="change_height(this.value);" value="500">change canvas height
 <br>
-<button onclick="add_ball(size);">add ball</button>
+<button onclick="add_ball(size);">add ball</button><label id="quantity">1</label>
 <br>
 <input type="number" oninput="change_size(this.value);" value="20">change size for new balls
 <br>
 <button onclick="remove_ball();">remove ball</button>
+<br>
+<button onclick="aim_showing();" id="aim">hide aim</button>
 <br>
 
 <script src="code.js"></script>
