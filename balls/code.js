@@ -164,7 +164,7 @@ class Ball
 {
     constructor(position, color = 'white', radius = 20, mass = 1, dampening = 0.9) 
     {
-        this.rigid_body = new RigidBody(position, mass, dampening);
+        this.rigid_body = new RigidBody(position, mass * ((radius * 2) * Math.PI), dampening);
         this.circle = new Circle(this.rigid_body.position, radius, color); 
         this.collider = new CircleCollider(this.rigid_body.position, this.rigid_body, radius);
     }
