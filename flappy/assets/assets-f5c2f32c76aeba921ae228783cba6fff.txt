@@ -1,0 +1,8 @@
+font/font.fnt
+font/font.png
+languages.xml
+sounds/click.wav
+sounds/explosion.ogg
+sounds/hit.wav
+textures/circle.png
+textures/pixel.png

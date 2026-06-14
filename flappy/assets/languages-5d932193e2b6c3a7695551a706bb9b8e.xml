@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<languages>
+    <language name="en" full_name="English">
+        <string key="back" value="Back"/>
+        <string key="settings" value="Settings"/>
+        <string key="language" value="Language"/>
+        <string key="languages" value="Languages"/>
+        <string key="play" value="Play"/>
+        <string key="about" value="About"/>
+        <string key="rankings" value="Rankings"/>
+        <string key="empty" value="Empty"/>
+        <string key="high_score" value="High score"/>
+        <string key="last_score" value="Last score"/>
+        <string key="about_text" value="This is an improved version of my first android game, Flappy Circle. A simple game about dodging obstacles with the circle."/>
+    </language>
+    <language name="uk" full_name="Ukrainian">
+        <string key="back" value="Назад"/>
+        <string key="settings" value="Налаштування"/>
+        <string key="language" value="Мова"/>
+        <string key="languages" value="Мови"/>
+        <string key="play" value="Грати"/>
+        <string key="about" value="Про гру"/>
+        <string key="rankings" value="Рекорди"/>
+        <string key="empty" value="Пусто"/>
+        <string key="high_score" value="Найкращий результат"/>
+        <string key="last_score" value="Останній результат"/>
+        <string key="about_text" value="Це покращена версія моєї першої гри для Android під назвою Flappy Circle. Проста гра про оминання перешкод за допомогою кульки."/>
+    </language>
+    <language name="pl" full_name="Polish">
+        <string key="back" value="Powrót"/>
+        <string key="settings" value="Ustawienia"/>
+        <string key="language" value="Język"/>
+        <string key="languages" value="Języki"/>
+        <string key="play" value="Graj"/>
+        <string key="about" value="O grze"/>
+        <string key="rankings" value="Rekordy"/>
+        <string key="empty" value="Pusto"/>
+        <string key="high_score" value="Najlepszy wynik"/>
+        <string key="last_score" value="Ostatni wynik"/>
+        <string key="about_text" value="To ulepszona wersja mojej pierwszej gry na Androida, Flappy Circle. Prosta gra polegająca na omijaniu przeszkód za pomocą kulki."/>
+    </language>
+</languages>

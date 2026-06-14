@@ -402,7 +402,7 @@ const ctx = canvas.getContext('2d');
 canvas.width = 500;
 canvas.height = 500;
 
-var force_multiplayer = 50000;
+var force_multiplayer = 5000000;
 var size = 20;
 const direction = new Vector2(1, 0);
 const FPS = 60;

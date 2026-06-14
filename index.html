@@ -1,27 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>oostap2</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-dark text-light">
     <div class="container">
-        <select id="languageSwitcher">
-          <option value="ua">Українська</option>
-          <option value="en">English</option>
-          <option value="pl">Polski</option>
-        </select>
-    
-        <h1 data-i18n="language"></h1>
-        <p data-i18n="description"></p>
-    </div><br><br>
-    <div class="container">
-        <h2 data-i18n="content"></h2>
-        <a href="maze/maze.html" data-i18n="maze"></a><br><br>
-        <a href="balls/index.html" data-i18n="balls"></a><br><br>
+        <header class="m-4">
+            <h1>Web projects</h1>
+        </header>
+        <main class="list-group">
+            <a href="flappy" class="list-group-item bg-dark text-white py-3 border-secondary">
+                <div>Flappy Circle</div>
+                <small class="text-secondary">Arcade Java LibGDX game.</small>
+            </a>
+            <a href="maze" class="list-group-item bg-dark text-white py-3 border-secondary">
+                <div>Maze</div>
+                <small class="text-secondary">Java Script maze.</small>
+            </a>
+			<a href="mouse_tester" class="list-group-item bg-dark text-white py-3 border-secondary">
+				<div>Mouse Tester</div>
+				<small class="text-secondary">Macroquad clicking game.</small>
+			</a>
+            <a href="balls" class="list-group-item bg-dark text-white py-3 border-secondary">
+                <div>Balls</div>
+                <small class="text-secondary">Java Script physics simulation.</small>
+            </a>
+            <a href="holes" class="list-group-item bg-dark text-white py-3 border-secondary">
+                <div>Holes Game</div>
+                <small class="text-secondary">Macroquad 2d balls physics game.</small>
+            </a>
+        </main>
+		<footer class="mt-1 text-secondary">
+			<small><a href="https://github.com/oostap2" class="text-secondary text-decoration-none">oostap2</a></small>
+		</footer>
     </div>
-    
-<script src="lang.js"></script>
 </body>
 </html>
